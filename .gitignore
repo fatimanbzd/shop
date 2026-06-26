@@ -361,3 +361,24 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# Angular / Nx
+node_modules/
+dist/
+tmp/
+coverage/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# Nx Cache
+.nx/cache
