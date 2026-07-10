@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.Features.Identity.Shared.Behaviors
+namespace Shop.Infrastructure.Authentication
 {
-    internal class LoggingBehavior
+    public class TokenService
     {
     }
 }

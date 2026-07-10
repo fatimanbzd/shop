@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shop.Application.Features.Identity.Register
 {
-    internal class RegisterResponse
-    {
-    }
+    public sealed record RegisterResponse(
+     Guid UserId,
+     string AccessToken,
+     string RefreshToken
+ );
 }

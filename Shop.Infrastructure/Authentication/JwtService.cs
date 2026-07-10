@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Infrastructure.Identity
+namespace Shop.Infrastructure.Authentication
 {
-    internal class IdentityService
+    internal class JwtService
     {
     }
 }

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Infrastructure.Identity
+namespace Shop.Infrastructure.Authentication
 {
-    public class ApplicationRole : IdentityRole<Guid>
+    public class ApplicationUser : IdentityUser<Guid>
     {
+        public Guid DomainUserId { get; set; }
     }
 }

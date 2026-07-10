@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.Features.Identity.Shared.Behaviors
+namespace Shop.Application.Shared.Behaviors
 {
     internal class ValidationBehavior
     {

@@ -1,25 +1,28 @@
 
-using System.Text;
-using Shop.Application;
-using Shop.Infrastructure;
-using Shop.Infrastructure.Repositpries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Shop.Application;
+using Shop.Infrastructure;
+using Shop.Infrastructure.Authentication;
 using Shop.Infrastructure.Extensions;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddDataProtection();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ShopDomain", policy =>
@@ -30,7 +33,10 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
@@ -47,12 +53,15 @@ using (var scope = app.Services.CreateScope())
 {
     scope.ServiceProvider.MigrateDatabase();
 }
+
+await IdentitySeeder.SeedRolesAsync(app.Services);
+
 app.UseHttpsRedirection();
 
 app.UseCors("ShopDomain");
 
 
-app.UseAuthentication();
+//app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -70,22 +79,18 @@ app.Run();
 //builder.Services.ConfigureApplication();
 //builder.Services.ConfigureInfrastructure();
 
-//builder.Services.AddControllers();
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-
 //builder.Services.AddSwaggerGen(option =>
 //{
-//    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop API", Version = "v1" });
-//    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-//    {
-//        In = ParameterLocation.Header,
-//        Description = "Please enter a valid token",
-//        Name = "Authorization",
-//        Type = SecuritySchemeType.Http,
-//        BearerFormat = "JWT",
-//        Scheme = "Bearer"
-//    });
+//option.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop API", Version = "v1" });
+//option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+//{
+//    In = ParameterLocation.Header,
+//    Description = "Please enter a valid token",
+//    Name = "Authorization",
+//    Type = SecuritySchemeType.Http,
+//    BearerFormat = "JWT",
+//    Scheme = "Bearer"
+//});
 
 //    option.AddSecurityRequirement(new OpenApiSecurityRequirement
 //    {
@@ -129,22 +134,13 @@ app.Run();
 
 //app.UseDeveloperExceptionPage();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    scope.ServiceProvider.MigrateDatabase();
-//}
 
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
 //app.UseHttpsRedirection();
 
 //app.UseCors("ShopDomain");
 
 //app.UseAuthentication();
 //app.UseAuthorization();
-//app.MapControllers();
 
-//app.Run();
+
+

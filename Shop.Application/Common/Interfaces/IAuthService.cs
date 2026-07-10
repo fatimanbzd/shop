@@ -2,7 +2,7 @@
 using Shop.Application.Features.Identity.RefreshToken;
 using Shop.Application.Features.Identity.Register;
 
-namespace Shop.Application.Features.Identity.Shared.Interfaces
+namespace Shop.Application.Shared.Interfaces
 {
     public interface IAuthService
     {

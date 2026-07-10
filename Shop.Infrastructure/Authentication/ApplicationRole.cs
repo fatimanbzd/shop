@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Infrastructure.Identity
+namespace Shop.Infrastructure.Authentication
 {
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationRole: IdentityRole<Guid>
     {
-        public Guid DomainUserId { get; set; }
     }
 }

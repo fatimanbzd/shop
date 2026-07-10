@@ -6,28 +6,40 @@ namespace Shop.Domain.Entities
 {
     public sealed class User
     {
-        [Key]
-        public int Id { get; set; }
+        private User()
+        {
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        [Required]
-        public string Email { get; set; }
-        public string Salt { get; set; }
-        public string? Mobile { get; set; }
-        [Required] public UserType UserType { get; set; }
-        public long CreatedBy { get; set; } = 1;
-        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.Now;
+        }
+        public Guid Id { get; set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string Email { get; private set; }
+        public string Mobile { get; private set; }
+        public UserType UserType { get; private set; }
+        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
         public bool IsDeleted { get; set; } = false;
-        public User(string email, string salt, string firstName, string lastName, string mobile, UserType userType)
+
+        private User(string email, string firstName, string lastName, string mobile, UserType userType)
         {
             Email = email;
-  
-            Salt = salt;
             FirstName = firstName;
             LastName = lastName;
             Mobile = mobile;
             UserType = userType;
+        }
+
+        public static User CreateCustomer(
+    string firstName,
+    string lastName,
+    string email,
+    string mobile)
+        {
+            return new User(
+                email,
+                firstName,
+                lastName,
+                mobile,
+                UserType.Customer);
         }
 
     }

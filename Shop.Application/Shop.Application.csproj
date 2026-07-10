@@ -14,10 +14,9 @@
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="16.2.0" />
 		<PackageReference Include="FluentValidation" Version="12.1.1" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
 		<PackageReference Include="MediatR" Version="14.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.9" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.9" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.12" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -26,9 +25,10 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Identity\Logout\" />
-	  <Folder Include="Features\Identity\Shared\Exceptions\" />
-	  <Folder Include="Features\Identity\Shared\Models\" />
-	  <Folder Include="Features\Identity\Shared\Abstractions\" />
+	  <Folder Include="Features\Identity\ChangePassword\" />
+	  <Folder Include="Features\Identity\ForgotPassword\" />
+	  <Folder Include="Common\Exceptions\" />
+	  <Folder Include="Common\Abstractions\" />
 	</ItemGroup>
 
 </Project>

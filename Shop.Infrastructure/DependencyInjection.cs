@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shop.Application.Shared.Interfaces;
+using Shop.Infrastructure.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +22,15 @@ namespace Shop.Infrastructure
             services.AddDbContext<ShopDbContext>(options =>
                options.UseSqlServer(configuration.GetConnectionString("ShopConnection")));
 
+            services.AddIdentityCore<ApplicationUser>()
+.AddRoles<ApplicationRole>()
+.AddEntityFrameworkStores<ShopDbContext>()
+.AddDefaultTokenProviders();
+
+            services.AddScoped<IApplicationDbContext>(sp =>
+    sp.GetRequiredService<ShopDbContext>());
             return services;
+
         }
     }
 }

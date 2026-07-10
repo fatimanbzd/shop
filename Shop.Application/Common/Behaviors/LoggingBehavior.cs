@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.Features.Identity.Shared.Interfaces
+namespace Shop.Application.Shared.Behaviors
 {
-    public interface ITokenService
+    internal class LoggingBehavior
     {
     }
 }
