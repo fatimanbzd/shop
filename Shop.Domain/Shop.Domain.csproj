@@ -8,16 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Core\Repositories\IUserRepository.cs" />
+    <Compile Remove="Core\**" />
+    <Compile Remove="Specifications\**" />
+    <EmbeddedResource Remove="Core\**" />
+    <EmbeddedResource Remove="Specifications\**" />
+    <None Remove="Core\**" />
+    <None Remove="Specifications\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="16.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="10.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="8.0.12" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
+    <Folder Include="Events\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Common\" />
+    <Folder Include="ValueObjects\" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,10 @@
 ﻿
-using Shop.Domain.Core.Models;
+using Shop.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace Shop.Domain.Entities
 {
-    public sealed class User : BaseEntity, ISoftDeleteEntity
+    public sealed class User
     {
         [Key]
         public int Id { get; set; }
@@ -16,33 +13,23 @@ namespace Shop.Domain.Entities
         public string LastName { get; set; }
         [Required]
         public string Email { get; set; }
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
         public string Salt { get; set; }
-        public string? Phone { get; set; }
-        [Required]
-        public EnumUserType UserType { get; set; }
+        public string? Mobile { get; set; }
+        [Required] public UserType UserType { get; set; }
         public long CreatedBy { get; set; } = 1;
         public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.Now;
         public bool IsDeleted { get; set; } = false;
-        public User(string email, string password, string salt, string firstName, string lastName, string phone, EnumUserType userType)
+        public User(string email, string salt, string firstName, string lastName, string mobile, UserType userType)
         {
             Email = email;
-            Password = password;
+  
             Salt = salt;
             FirstName = firstName;
             LastName = lastName;
-            Phone = phone;
+            Mobile = mobile;
             UserType = userType;
         }
 
-    }
-
-    public enum EnumUserType
-    {
-        Administrator = 1,
-        Merchant = 2,
-        Customer = 3
     }
 
 }
