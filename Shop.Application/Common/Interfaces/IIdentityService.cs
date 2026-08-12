@@ -20,5 +20,9 @@ namespace Shop.Application.Shared.Interfaces
        Guid identityUserId,
        string role,
        CancellationToken cancellationToken);
+
+        Task<Result> DeleteUserAsync(
+      Guid identityUserId,
+      CancellationToken cancellationToken);
     }
 }

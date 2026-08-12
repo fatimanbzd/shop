@@ -27,6 +27,8 @@ namespace Shop.Infrastructure
 .AddEntityFrameworkStores<ShopDbContext>()
 .AddDefaultTokenProviders();
 
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IApplicationDbContext>(sp =>
     sp.GetRequiredService<ShopDbContext>());
             return services;

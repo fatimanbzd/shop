@@ -1,4 +1,5 @@
 
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shop.Application;
+using Shop.Application.Features.Identity.Register;
+using Shop.Application.Shared.Interfaces;
 using Shop.Infrastructure;
 using Shop.Infrastructure.Authentication;
 using Shop.Infrastructure.Extensions;
@@ -37,8 +40,11 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization();
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(RegisterCommandHandler).Assembly));
 
-
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
 var app = builder.Build();
 
 

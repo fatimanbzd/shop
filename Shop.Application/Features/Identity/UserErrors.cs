@@ -20,5 +20,9 @@ namespace Shop.Application.Features.Identity
 
         public static readonly Error UserNotFound =
             new("User.NotFound", "User not found.");
+
+        public static readonly Error DeleteFailed =
+            new("User.DeleteFailed", "Delete user is failed.");
+
     }
 }

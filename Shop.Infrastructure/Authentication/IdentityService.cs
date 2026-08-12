@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop.Application.Common.Results;
+using Shop.Application.Features.Identity;
 using Shop.Application.Features.Identity.Models;
 using Shop.Application.Shared.Interfaces;
 using System;
@@ -88,6 +89,29 @@ namespace Shop.Infrastructure.Authentication
 
                 Result.Failure(
      IdentityErrors.AddToRoleFailed(errors));
+            }
+
+            return Result.Success();
+        }
+
+
+        public async Task<Result> DeleteUserAsync(
+        Guid identityUserId,
+        CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByIdAsync(identityUserId.ToString());
+
+            if (user is null)
+            {
+                return Result.Success();
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+            {
+                // Error واقعی پروژهٔ خودت را برگردان
+                return Result.Failure(UserErrors.DeleteFailed);
             }
 
             return Result.Success();
