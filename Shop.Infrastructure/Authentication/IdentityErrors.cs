@@ -17,5 +17,8 @@ namespace Shop.Infrastructure.Authentication
 
         public static Error AddToRoleFailed(string description) =>
             new("Identity.AddRoleFailed", description);
+
+        public static readonly Error InvalidCredentials =
+    new("Identity.InvalidCredentials", "username or password is invalid.");
     }
 }

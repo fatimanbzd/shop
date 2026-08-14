@@ -116,5 +116,36 @@ namespace Shop.Infrastructure.Authentication
 
             return Result.Success();
         }
+<<<<<<< HEAD
+
+
+        public async Task<Result<Guid>> ValidateCredentialsAsync(
+    string email,
+    string password,
+    CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user is null)
+            {
+                return Result<Guid>.Failure(
+                    IdentityErrors.InvalidCredentials);
+            }
+
+
+            var validPassword =
+        await _userManager.CheckPasswordAsync(user, password);
+
+            if (!validPassword)
+            {
+                return Result<Guid>.Failure(
+                    IdentityErrors.InvalidCredentials);
+            }
+
+            return Result<Guid>.Success(user.Id);
+
+        }
+=======
+>>>>>>> main
     }
 }

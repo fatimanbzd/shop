@@ -43,8 +43,33 @@ builder.Services.AddAuthorization();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(RegisterCommandHandler).Assembly));
 
+<<<<<<< HEAD
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
+    });
+=======
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
+>>>>>>> main
 var app = builder.Build();
 
 
@@ -67,7 +92,7 @@ app.UseHttpsRedirection();
 app.UseCors("ShopDomain");
 
 
-//app.UseAuthentication();
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -75,7 +100,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 
-app.Run();
 //var appSettings = new ConfigurationBuilder()
 //    .SetBasePath(Directory.GetCurrentDirectory())
 //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -114,19 +138,7 @@ app.Run();
 //    });
 //});
 
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-//{
-//    options.RequireHttpsMetadata = false;
-//    options.SaveToken = true;
-//    options.TokenValidationParameters = new TokenValidationParameters()
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidAudience = builder.Configuration["Jwt:Audience"],
-//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-//    };
-//});
+
 
 //builder.Services.AddCors(options =>
 //{
@@ -145,8 +157,6 @@ app.Run();
 
 //app.UseCors("ShopDomain");
 
-//app.UseAuthentication();
-//app.UseAuthorization();
 
-
+app.Run();
 
