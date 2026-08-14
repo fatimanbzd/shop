@@ -29,6 +29,7 @@ namespace Shop.Application.Features.Identity.Register
             RegisterCommand request,
             CancellationToken cancellationToken)
         {
+
             if (await _identityService.IsEmailExistsAsync(
          request.Email,
          cancellationToken))
@@ -65,6 +66,8 @@ namespace Shop.Application.Features.Identity.Register
 
             if (identityResult.IsFailure)
             {
+                await RemoveApplicationUserAsync(user, cancellationToken);
+
                 return Result<RegisterResponse>.Failure(identityResult.Error);
             }
 
@@ -96,6 +99,12 @@ namespace Shop.Application.Features.Identity.Register
             throw new NotImplementedException();
         }
 
-
+        private async Task RemoveApplicationUserAsync(
+    User user,
+    CancellationToken cancellationToken)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

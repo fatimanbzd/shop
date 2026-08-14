@@ -24,11 +24,14 @@ namespace Shop.Application.Shared.Interfaces
         Task<Result> DeleteUserAsync(
       Guid identityUserId,
       CancellationToken cancellationToken);
+<<<<<<< HEAD
 
 
         Task<Result<Guid>> ValidateCredentialsAsync(
     string email,
     string password,
     CancellationToken cancellationToken);
+=======
+>>>>>>> main
     }
 }

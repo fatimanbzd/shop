@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop.Application.Common.Results;
+using Shop.Application.Features.Identity;
 using Shop.Application.Features.Identity.Models;
 using Shop.Application.Shared.Interfaces;
 using System;
@@ -115,6 +116,7 @@ namespace Shop.Infrastructure.Authentication
 
             return Result.Success();
         }
+<<<<<<< HEAD
 
 
         public async Task<Result<Guid>> ValidateCredentialsAsync(
@@ -143,5 +145,7 @@ namespace Shop.Infrastructure.Authentication
             return Result<Guid>.Success(user.Id);
 
         }
+=======
+>>>>>>> main
     }
 }

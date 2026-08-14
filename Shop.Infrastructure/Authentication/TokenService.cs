@@ -15,8 +15,9 @@ using System.Threading.Tasks;
 
 namespace Shop.Infrastructure.Authentication
 {
-    public class TokenService
+    public class TokenService: ITokenService
     {
+<<<<<<< HEAD
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly JwtOptions _jwtOptions;
@@ -93,6 +94,22 @@ namespace Shop.Infrastructure.Authentication
         {
             return Convert.ToBase64String(
                 RandomNumberGenerator.GetBytes(64));
+=======
+        public Task<Result<TokenResponse>> GenerateTokenAsync(Guid identityUserId, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var now = DateTime.UtcNow;
+            // Generate JWT token
+            var tokenResponse = new TokenResponse(
+            AccessToken: $"dev-access-{identityUserId:N}-{Guid.NewGuid():N}",
+            RefreshToken: $"dev-refresh-{Guid.NewGuid():N}",
+            AccessTokenExpiresAt: now.AddMinutes(15),
+            RefreshTokenExpiresAt: now.AddDays(7)
+        );
+
+            return Task.FromResult(Result<TokenResponse>.Success(tokenResponse));
+
+>>>>>>> main
         }
     }
 }
