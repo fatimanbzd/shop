@@ -27,6 +27,11 @@ namespace Shop.Infrastructure
 .AddEntityFrameworkStores<ShopDbContext>()
 .AddDefaultTokenProviders();
 
+            services.Configure<JwtOptions>(
+    configuration.GetSection(JwtOptions.SectionName));
+
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IApplicationDbContext>(sp =>
     sp.GetRequiredService<ShopDbContext>());
             return services;

@@ -2,11 +2,9 @@
 
 namespace Shop.Application.Features.Identity.Login
 {
-    public class LoginResponse
-    {
-        [Required]
-        public required string email { get; set; }
-        [Required]
-        public required string password { get; set; }
-    }
+    public sealed record LoginResponse(
+   Guid UserId,
+   string AccessToken,
+   string RefreshToken
+);
 }

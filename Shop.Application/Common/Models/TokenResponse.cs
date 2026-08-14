@@ -9,6 +9,6 @@ namespace Shop.Application.Common.Models
     public sealed record TokenResponse(
      string AccessToken,
      string RefreshToken,
-     DateTime AccessTokenExpiresAt,
-     DateTime RefreshTokenExpiresAt);
+     DateTimeOffset AccessTokenExpiresAt,
+     DateTimeOffset RefreshTokenExpiresAt);
 }

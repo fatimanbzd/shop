@@ -5,6 +5,8 @@ using Shop.Application.Features.Identity.Register;
 using Shop.Application.Shared.Interfaces;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Threading;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Shop.WebApi.Controllers
 {
@@ -30,61 +32,17 @@ namespace Shop.WebApi.Controllers
             return Ok(result.Value);
         }
 
-        //[HttpPost("login")]
-        //public async Task<IActionResult> logIn(LoginResponse loginModel)
-        //{
-        //    try
-        //    {
-        //var user = _authService.LogIn(loginModel.email, loginModel.password);
-        //if (user == null)
-        //{
+        [HttpPost("login")]
+        public async Task<IActionResult> logIn(LoginCommand command, CancellationToken cancellationToken)
+        {
 
-        //    return BadRequest(ApiResponse.Error("User not found!"));
-        //}
-        //return await Task.FromResult<IActionResult>(Ok(ApiResponse.Success(new LoginResponse
-        //{
-        //    FirstName = user.Result.FirstName,
-        //    LastName = user.Result.LastName,
-        //    Phone = user.Result.Phone,
-        //    Token = user.Result.Token
-        //})));
-        //    return null;
-        //}
-        //catch (Exception ex)
-        //{
-        // return BadRequest(ApiResponse.Error(ex.Message));
-        //    }
-        //}
+            var result = await _sender.Send(command, cancellationToken);
+            if (result.IsFailure)
+                return Unauthorized(result.Error);
 
-        //[HttpPost]
-        //[Route("register")]
-        //public async Task<IActionResult> Register(User userDto)
-        //{
-        //    try
-        //    {
-        //        byte[] salt = RandomNumberGenerator.GetBytes(128 / 8);
-        //        string saltBase64 = Convert.ToBase64String(salt);
+            return Ok(result.Value);
 
-        //        User user = new User(
-        //            userDto.Email,
-        //            password: userDto.Password,
-        //            saltBase64,
-        //            userDto.FirstName,
-        //            userDto.LastName,
-        //            userDto.Phone,
-        //            EnumUserType.Customer
+        }
 
-        //        );
-
-        //        await _authService.Register(userDto);
-        //        return Ok(ApiResponse.Success("Register is Succeed."));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ApiResponse.Error(ex.Message));
-
-        //    }
-
-        //}
     }
 }
